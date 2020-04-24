@@ -3,11 +3,14 @@
 #include <cinder/app/App.h>
 #include <cinder/app/RendererGl.h>
 
-#include "my_app.h"
-
+#include "cinder/gl/gl.h"
+#include "tetris.h"
 
 using cinder::app::App;
 using cinder::app::RendererGl;
+
+using namespace ci;
+using namespace ci::app;
 
 
 namespace myapp {
@@ -25,6 +28,7 @@ void SetUp(App::Settings* settings) {
 
 
 // This is a macro that runs the application.
-CINDER_APP(myapp::MyApp,
+CINDER_APP(tetrisapp::TetrisApp,
            RendererGl(RendererGl::Options().msaa(myapp::kSamples)),
            myapp::SetUp)
+

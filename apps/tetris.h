@@ -4,19 +4,26 @@
 #define FINALPROJECT_APPS_MYAPP_H_
 
 #include <cinder/app/App.h>
+#include <cinder/audio/audio.h>
+#include <tetris/engine.h>
 
+namespace tetrisapp {
 
-namespace myapp {
+class TetrisApp : public cinder::app::App {
+ private:
+  ci::audio::VoiceRef mVoice;
+  tetris::Engine engine_;
+  bool paused_;
 
-class MyApp : public cinder::app::App {
  public:
-  MyApp();
+  TetrisApp();
   void setup() override;
   void update() override;
   void draw() override;
   void keyDown(cinder::app::KeyEvent) override;
+  void TetrisApp::PlayMusic(std::string music_path);
 };
 
-}  // namespace myapp
+}  // namespace tetrisapp
 
 #endif  // FINALPROJECT_APPS_MYAPP_H_

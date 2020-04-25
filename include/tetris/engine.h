@@ -5,9 +5,18 @@
 #ifndef FINALPROJECT_ENGINE_H
 #define FINALPROJECT_ENGINE_H
 
+#include <tetris/block.h>
+
+#include <array>
 #include <random>
 #include <set>
+
+#include "location.h"
+
+using namespace std;
+
 namespace tetris {
+
 
 // This is the game engine which is primary way to interact with the game.
 class Engine {
@@ -23,6 +32,12 @@ class Engine {
   void Reset();
 
   size_t GetScore() const;
+
+  void RenderBlock(Block block);
+
+  void DrawSmallRect();
+
+  void MoveBlock();
 };
 
 }  // namespace tetris

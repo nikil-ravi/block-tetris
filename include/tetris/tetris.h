@@ -4,6 +4,7 @@
 #define FINALPROJECT_APPS_MYAPP_H_
 
 #include <cinder/app/App.h>
+#include <cinder/app/MouseEvent.h>
 #include <cinder/audio/audio.h>
 #include <tetris/engine.h>
 
@@ -22,6 +23,7 @@ class TetrisApp : public cinder::app::App {
   void draw() override;
   void keyDown(cinder::app::KeyEvent) override;
   void TetrisApp::PlayMusic(std::string music_path);
+  void TetrisApp::mouseDown(cinder::app::MouseEvent event) override;
 };
 
 }  // namespace tetrisapp

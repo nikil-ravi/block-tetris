@@ -3,19 +3,15 @@
 //
 
 #include <tetris/block.h>
-#include <tetris/block.h>
 
 namespace tetris {
 
-
-  Block::Block(BlockSpec blockspec){
-    block_spec = blockspec;
+  Block::Block(std::array<std::array<bool, 3>, 3> block_spec) {
+    block_arr = block_spec;
   }
 
-  BlockSpec Block::GetBlockSpec() {
-    return block_spec;
+  std::array<std::array<bool, 3>, 3> Block::GetBlockSpec() {
+    return block_arr;
   }
-
-
 
 } // namespace tetris

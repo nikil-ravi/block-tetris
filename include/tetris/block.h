@@ -5,8 +5,14 @@
 #ifndef FINALPROJECT_BLOCK_H
 #define FINALPROJECT_BLOCK_H
 
+#include <array>
+
+using namespace std;
+
 namespace tetris {
-  enum class BlockSpec {
+
+  const int kMaxBlockSideLength = 3;
+  /*enum class BlockSpec {
     Horizontal,
     Vertical,
     LShapedBottomLeft,
@@ -25,13 +31,16 @@ namespace tetris {
     TwoHorizontal,
     ThreeHorizontal,
   };
-
+*/
   class Block {
    private:
-    BlockSpec block_spec;
+    std::array<std::array<bool, 3>, 3> block_arr;
+    //BlockSpec block_spec;
    public:
-    Block(BlockSpec block_spec);
-    BlockSpec GetBlockSpec();
+    //Block(BlockSpec block_spec);
+    Block(std::array<std::array<bool, 3>, 3> block_spec);
+    std::array<std::array<bool, 3>, 3> GetBlockSpec();
+
   };
 } // namespace tetris
 

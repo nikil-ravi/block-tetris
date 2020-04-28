@@ -6,6 +6,7 @@
 #define FINALPROJECT_BLOCK_H
 
 #include <array>
+#include <tetris/point.h>
 
 using namespace std;
 
@@ -40,7 +41,7 @@ namespace tetris {
     //Block(BlockSpec block_spec);
     Block(std::array<std::array<bool, 3>, 3> block_spec);
     std::array<std::array<bool, 3>, 3> GetBlockSpec();
-
+    Block* Block::drag(Block *sqr, Point *mouse);
   };
 } // namespace tetris
 

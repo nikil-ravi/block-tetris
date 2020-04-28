@@ -6,9 +6,6 @@
 #include <cinder/audio/Exception.h>
 #include <cinder/audio/audio.h>
 #include <tetris/block.h>
-
-#include <iostream>
-
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 
@@ -38,6 +35,7 @@ void TetrisApp::PlayMusic(std::string music_path) {
     mVoice = Voice::create( sourceFile );
     mVoice->start();
   } catch (cinder::audio::AudioFileExc e) {}
+  // TODO loop the music if it stops
 }
 
 void TetrisApp::setup() {

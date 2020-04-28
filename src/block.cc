@@ -3,6 +3,7 @@
 //
 
 #include <tetris/block.h>
+#include <tetris/point.h>
 
 namespace tetris {
 
@@ -13,5 +14,9 @@ namespace tetris {
   std::array<std::array<bool, 3>, 3> Block::GetBlockSpec() {
     return block_arr;
   }
+
+Block* Block::drag(Block *sqr, Point *mouse) {
+
+}
 
 } // namespace tetris

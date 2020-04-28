@@ -76,8 +76,8 @@ namespace tetris {
 
   void Engine::MoveBlock() {
     gl::color(1, 0, 1);
-    gl::drawSolidRect( Rectf( getWindowWidth()/4-60.0f,
-                              getWindowHeight()/9-60.0f,
+    gl::drawSolidRect( Rectf( getWindowWidth()/4,
+                              getWindowHeight()/9,
                               getWindowWidth()/4+60.0f,
                               getWindowHeight()/9+60.0f ) );
   }

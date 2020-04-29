@@ -7,6 +7,12 @@
 
 #include <array>
 #include <tetris/point.h>
+#include "cinder/app/App.h"
+#include "cinder/app/RendererGl.h"
+#include "cinder/gl/gl.h"
+
+using namespace ci;
+using namespace ci::app;
 
 using namespace std;
 
@@ -36,12 +42,11 @@ namespace tetris {
   class Block {
    private:
     std::array<std::array<bool, 3>, 3> block_arr;
-    //BlockSpec block_spec;
+    std::vector<vec2> mPoints;
    public:
-    //Block(BlockSpec block_spec);
+    Block();
     Block(std::array<std::array<bool, 3>, 3> block_spec);
     std::array<std::array<bool, 3>, 3> GetBlockSpec();
-    Block* Block::drag(Block *sqr, Point *mouse);
   };
 } // namespace tetris
 

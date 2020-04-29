@@ -20,8 +20,16 @@ namespace tetris {
 
 // This is the game engine which is primary way to interact with the game.
 class Engine {
+ private:
+  Block block;
+
  public:
+
   Engine();
+
+  Engine(Block block);
+
+  void SetBlock(Block block);
 
   void StartGame();
 
@@ -34,6 +42,8 @@ class Engine {
   size_t GetScore() const;
 
   void RenderBlock(Block block);
+
+  Block GetBlock();
 
   void DrawSmallRect();
 

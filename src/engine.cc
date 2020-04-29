@@ -24,7 +24,9 @@ namespace tetris {
 
   const char kNormalFont[] = "Arial";
 
-  Engine::Engine() {}
+  /*Engine::Engine(Block block_input) {
+    this->block = block_input;
+  }*/
 
   void tetris::Engine::StartGame() {
     auto box = TextBox()
@@ -81,6 +83,21 @@ namespace tetris {
                               getWindowWidth()/4+60.0f,
                               getWindowHeight()/9+60.0f ) );
   }
+
+  Block Engine::GetBlock() {
+    return block;
+  }
+
+  Engine::Engine(Block block) {
+    this->block = Block(block.GetBlockSpec());
+  }
+
+  Engine::Engine() {}
+
+  void Engine::SetBlock(Block block_to_set) {
+    this->block = Block(block_to_set.GetBlockSpec());
+  }
+
 }
 
 

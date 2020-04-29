@@ -35,7 +35,6 @@ void TetrisApp::PlayMusic(std::string music_path) {
     mVoice = Voice::create( sourceFile );
     mVoice->start();
   } catch (cinder::audio::AudioFileExc e) {}
-  // TODO loop the music if it stops
 }
 
 void TetrisApp::setup() {
@@ -47,27 +46,16 @@ void TetrisApp::setup() {
 
 void TetrisApp::update() {
   if (!mVoice->isPlaying()) {PlayMusic("uncan.wav");}
-
-  std::array<std::array<bool, 3>, 3> arr = {{{1, 1, 1}, {0, 0, 0}, {0, 0, 0}}};
+  std::array<std::array<bool, 3>, 3> arr = {{{1, 1, 1}, {0, 1, 0}, {0, 0, 0}}};
   Block block(arr);
-  engine_.RenderBlock(block);
+  engine_.SetBlock(block);
 }
 
-void DrawSmallRects() {
+void TetrisApp::DrawSmallRect() {
   gl::color( 1, 0, 0 ); // set color to red
-  gl::drawStrokedRect( Rectf( getWindowWidth()/4-40.0f,
-                              getWindowHeight()/9-40.0f,
-                              getWindowWidth()/4+40.0f,
-                              getWindowHeight()/9+40.0f ) );
-
   gl::drawStrokedRect( Rectf( getWindowWidth()/2-40.0f,
                               getWindowHeight()/9-40.0f,
                               getWindowWidth()/2+40.0f,
-                              getWindowHeight()/9+40.0f ) );
-
-  gl::drawStrokedRect( Rectf( 3*getWindowWidth()/4-40.0f,
-                              getWindowHeight()/9-40.0f,
-                              3*getWindowWidth()/4+40.0f,
                               getWindowHeight()/9+40.0f ) );
 }
 
@@ -83,11 +71,37 @@ void DrawGameRect() {
                               getWindowHeight()/2+240.0f ) );
 }
 
+void TetrisApp::DrawBlock() {
+  Block block = engine_.GetBlock();
+  std::array<std::array<bool, 3>, 3> block_spec = block.GetBlockSpec();
+  float x = getWindowWidth()/2;
+  float y = getWindowHeight()/9;
+  if (!mPointsX.empty()) {
+    x = mPointsX[mPointsX.size() - 1];
+    y = mPointsY[mPointsY.size() - 1];
+    // TODO maybe clear mPoints here, since only last element is used anyway
+  }
+
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      if (block_spec[i][j] == 1) {
+        gl::drawSolidRect( Rectf( 40 * i + x - 20.0f,
+                                  40 * j + y - 20.0f,
+                                  40 * i + x + 20.0f,
+                                  40 * j + y + 20.0f ) );
+      }
+    }
+  }
+}
+
+
 void TetrisApp::draw() {
+
+  gl::clear();
 
   DrawGameRect();
 
-  DrawSmallRects();
+  DrawSmallRect();
 
   auto box = TextBox()
       .alignment(TextBox::CENTER)
@@ -101,6 +115,8 @@ void TetrisApp::draw() {
   const auto surface = box.render();
   const auto texture = cinder::gl::Texture::create(surface);
   cinder::gl::draw(texture, locp);
+
+  DrawBlock();
 }
 
 void TetrisApp::keyDown(KeyEvent event) {
@@ -116,16 +132,14 @@ void TetrisApp::keyDown(KeyEvent event) {
       // TODO do whatever is necessary to deal with paused/not paused
     }
     case KeyEvent::KEY_DOWN: {
-      if (box1_clicked) {
-        engine_.MoveBlock();
-      }
+
     }
   }
 }
 
-void TetrisApp::mouseDown(MouseEvent event) {
-  box1_clicked = true;
+void TetrisApp::mouseDrag(MouseEvent event) {
+  mPointsX.push_back(event.getX());
+  mPointsY.push_back(event.getY());
 }
-
 
 }  // namespace tetrisapp

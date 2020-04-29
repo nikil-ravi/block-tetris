@@ -12,6 +12,8 @@ namespace tetrisapp {
 
 class TetrisApp : public cinder::app::App {
  private:
+  vector<int> mPointsX;
+  vector<int> mPointsY;
   ci::audio::VoiceRef mVoice;
   tetris::Engine engine_;
   bool paused_;
@@ -21,9 +23,11 @@ class TetrisApp : public cinder::app::App {
   void setup() override;
   void update() override;
   void draw() override;
+  void DrawBlock();
+  void DrawSmallRect();
   void keyDown(cinder::app::KeyEvent) override;
   void TetrisApp::PlayMusic(std::string music_path);
-  void TetrisApp::mouseDown(cinder::app::MouseEvent event) override;
+  void mouseDrag( MouseEvent event ) override;
 };
 
 }  // namespace tetrisapp

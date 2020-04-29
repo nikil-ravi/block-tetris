@@ -12,7 +12,6 @@ using cinder::app::RendererGl;
 using namespace ci;
 using namespace ci::app;
 
-
 namespace tetrisapp {
 
 const int kSamples = 8;

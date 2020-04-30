@@ -24,3 +24,4 @@
     [ ] Write code to check whether a block is valid
 
 
+- **4/29/20** Implemented grid class methods

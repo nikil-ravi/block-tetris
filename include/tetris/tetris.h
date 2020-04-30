@@ -8,6 +8,8 @@
 #include <cinder/audio/audio.h>
 #include <tetris/engine.h>
 
+#include "grid.h"
+
 namespace tetrisapp {
 
 class TetrisApp : public cinder::app::App {
@@ -17,6 +19,12 @@ class TetrisApp : public cinder::app::App {
   ci::audio::VoiceRef mVoice;
   tetris::Engine engine_;
   bool paused_;
+  float final_point_X;
+  float final_point_Y;
+  //gl::Texture myImage;
+  tetris::Grid* grid;
+  bool block_fits;
+  //cinder::gl::Texture2dRef background;
 
  public:
   TetrisApp();
@@ -28,6 +36,8 @@ class TetrisApp : public cinder::app::App {
   void keyDown(cinder::app::KeyEvent) override;
   void TetrisApp::PlayMusic(std::string music_path);
   void mouseDrag( MouseEvent event ) override;
+  void RenderGrid();
+  void mouseUp( MouseEvent event ) override;
 };
 
 }  // namespace tetrisapp

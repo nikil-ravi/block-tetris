@@ -7,6 +7,8 @@
 
 #include <array>
 
+#include "point.h"
+
 using namespace std;
 
 
@@ -16,7 +18,7 @@ namespace tetris {
 
   class Grid {
    private:
-    std::array<std::array<bool, 8>, 8> block_arr;
+    std::array<std::array<bool, 8>, 8> grid_arr;
    public:
 
     Grid();
@@ -27,9 +29,9 @@ namespace tetris {
 
     bool DoesFit(std::array<std::array<bool, 3>, 3>);
 
-    bool CollisionExists(std::array<std::array<bool, 8>, 8>, int row, int column);
+    bool CollisionExists(std::array<std::array<bool, 3>, 3>, int row, int column);
 
-    bool CanFit(float x, float y);
+    Point CanFit(float x, float y, std::array<std::array<bool, 3>, 3> arr);
   };
 
 } // namespace tetris

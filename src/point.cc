@@ -3,3 +3,11 @@
 //
 
 #include "tetris/point.h"
+
+int Point::GetRow() {
+  return row;
+}
+
+int Point::GetColumn() {
+  return column;
+}

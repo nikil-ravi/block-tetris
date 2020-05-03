@@ -25,6 +25,7 @@ class TetrisApp : public cinder::app::App {
   tetris::Grid* grid;
   bool block_fits;
   //cinder::gl::Texture2dRef background;
+  tetris::Block* block;
 
  public:
   TetrisApp();

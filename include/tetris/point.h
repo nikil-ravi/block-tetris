@@ -9,12 +9,16 @@
 // Code taken from https://stackoverflow.com/a/20312698
 class Point {
  private:
-  float x,y;
+  int row,column;
  public:
   // default constructor
-  Point() { x = 0.0; y = 0.0; }
+  Point() { row = -1; column = -1; }
 
-  Point(float _x, float _y) : x(_x), y(_y) {}
+  Point(int _x, int _y) : row(_x), column(_y) {}
+
+  int GetRow();
+
+  int GetColumn();
 };
 
 #endif  // FINALPROJECT_POINT_H

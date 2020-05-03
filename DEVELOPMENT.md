@@ -25,3 +25,9 @@
 
 
 - **4/29/20** Implemented grid class methods
+
+- **4/30/20** Implemented block-fitting logic to check whether a block fits in the grid
+
+- **5/1/20** 
+    - Added general code in grid, tetris classes.
+    - Created a Block Generator class and implemented some of its methods.

@@ -1,13 +1,11 @@
 // Copyright (c) 2020 Nikil. All rights reserved.
 
 #include "tetris/tetris.h"
-
 #include <cinder/app/App.h>
 #include <cinder/audio/Exception.h>
 #include <cinder/audio/audio.h>
 #include <tetris/block.h>
 #include <tetris/grid.h>
-
 #include "cinder/ImageIo.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/Texture.h"
@@ -32,9 +30,8 @@ TetrisApp::TetrisApp()
     : engine_{},
       paused_{false},
       grid{},
-      block_fits{false} {}
-
-
+      block_fits{true},
+      block() {}
 
 void TetrisApp::PlayMusic(std::string music_path) {
   try {
@@ -51,15 +48,15 @@ void TetrisApp::setup() {
   //background = loadImage(loadResource("tetris2.jpg"));
 
   //gl::draw( background );
-  Block block(arr);
-  engine_.RenderBlock(block);
+  block = new Block(arr);
+  engine_.RenderBlock(*block);
 }
 
 void TetrisApp::update() {
   if (!mVoice->isPlaying()) {PlayMusic("uncan.wav");}
   std::array<std::array<bool, 3>, 3> arr = {{{1, 1, 1}, {0, 1, 0}, {0, 0, 0}}};
   Block block(arr);
-  engine_.SetBlock(block);
+  //engine_.SetBlock(block);
 }
 
 void TetrisApp::DrawSmallRect() {
@@ -97,14 +94,13 @@ void TetrisApp::RenderGrid() {
       glVertexPointer(2, GL_FLOAT, 0, line_vertex);
       glDrawArrays(GL_LINES, 0, 2);
     }
-  } catch (std::exception e) {}
-*/
+  } catch (std::exception e) {}*/
 
 }
 
 void TetrisApp::DrawBlock() {
-  Block block = engine_.GetBlock();
-  std::array<std::array<bool, 3>, 3> block_spec = block.GetBlockSpec();
+  //Block block = engine_.GetBlock();
+  std::array<std::array<bool, 3>, 3> block_spec = block->GetBlockSpec();
   float x = getWindowWidth()/2;
   float y = getWindowHeight()/9;
   if (!mPointsX.empty() && block_fits) {
@@ -135,7 +131,7 @@ void TetrisApp::draw() {
 
   DrawSmallRect();
 
-  RenderGrid();
+  //RenderGrid();
 
   auto box = TextBox()
       .alignment(TextBox::CENTER)
@@ -176,14 +172,17 @@ void TetrisApp::mouseDrag(MouseEvent event) {
   mPointsX.push_back(event.getX());
   mPointsY.push_back(event.getY());
 }
+
 void TetrisApp::mouseUp(MouseEvent event) {
-  if (grid->CanFit(event.getX(), event.getY())) {
+  Point point = grid->CanFit(event.getX(), event.getY(), block->GetBlockSpec());
+
+  /*if (point.GetRow() >= 0 && point.GetColumn() >= 0) {
     // TODO update grid class, other variables that need to be updated
     block_fits = true;
   } else {
     block_fits = false;
   }
-  AppBase::mouseUp(event);
+  //AppBase::mouseUp(event);*/
 }
 
 }  // namespace tetrisapp

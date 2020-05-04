@@ -14,6 +14,9 @@ namespace tetris {
     std::array<std::array<bool, 3>, 3> block_arr;
 
    public:
+
+    BlockGenerator();
+
     Block GetRandomBlock();
 
     bool IsBlockValid();

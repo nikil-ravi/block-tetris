@@ -41,18 +41,15 @@ namespace tetris {
     return empty_count;
   }
 
-  /*// TODO see if Rabin Karp can be used somehow to make this more efficient
-  bool Grid::DoesFit(std::array<std::array<bool, 3>, 3>) {
-
-    return false;
-  }*/
-
   // TODO see if Rabin Karp can be used somehow to make this more efficient
-  Point Grid::CanFit(float x, float y, std::array<std::array<bool, 3>, 3> blockarray) {
-    x = x - 240.0f;
-    y = y - 240.0f;
+  Point Grid::CanFit(float x, float y,
+                     std::array<std::array<bool, 3>, 3> blockarray) {
+    x = x - (getWindowWidth()/2-240.0f);
+    y = y - (getWindowHeight()/2-240.0f);
+
     int column = std::floor(x / 80.0f);
     int row = std::floor(y / 80.0f);
+
     Point point(row, column);
     if (row < 0 || column < 0) {
       return point;
@@ -60,34 +57,33 @@ namespace tetris {
       if (!CollisionExists(blockarray, point.GetRow(), point.GetColumn())) {
         return point;
       } else {
-        return Point(-1,-1);
+        return Point(-1, -1);
       }
     }
   }
 
-  bool Grid::CollisionExists(std::array<std::array<bool, 3>, 3> arr, int row, int column) {
+  bool Grid::CollisionExists(std::array<std::array<bool, 3>, 3> arr, int row,
+                             int column) {
     for (int i = row; i < row + 3; i++) {
       for (int j = column; j < column + 3; j++) {
         if (i >= 8) {
-          if (arr[i - row][0] == 1 || arr[i - row][1] == 1 || arr[i - row][2] == 1) {
+          if (arr[i - row][0] == 1 || arr[i - row][1] == 1 ||
+              arr[i - row][2] == 1) {
             return false;
           }
         }
         if (j >= 8) {
-          if (arr[0][j - column] == 1 || arr[1][j - column] == 1 || arr[2][j - column] == 1) {
+          if (arr[0][j - column] == 1 || arr[1][j - column] == 1 ||
+              arr[2][j - column] == 1) {
             return false;
           }
         }
-        if (arr[i - row][j - column] == true && grid_arr[i][j] == true) {
+        if (arr[i - row][j - column] && grid_arr[i][j]) {
           return false;
         }
       }
     }
     return true;
   }
-
-
-
-
 }
 

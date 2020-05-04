@@ -7,6 +7,7 @@
 #include <cinder/app/MouseEvent.h>
 #include <cinder/audio/audio.h>
 #include <tetris/engine.h>
+#include <tetris/blockgenerator.h>
 
 #include "grid.h"
 
@@ -24,8 +25,11 @@ class TetrisApp : public cinder::app::App {
   //gl::Texture myImage;
   tetris::Grid* grid;
   bool block_fits;
-  //cinder::gl::Texture2dRef background;
-  tetris::Block* block;
+  cinder::gl::Texture2dRef background;
+  tetris::Block block;
+  tetris::BlockGenerator block_generator;
+  bool block_moved;
+  bool tried_to_fit_block;
 
  public:
   TetrisApp();
@@ -39,6 +43,7 @@ class TetrisApp : public cinder::app::App {
   void mouseDrag( MouseEvent event ) override;
   void RenderGrid();
   void mouseUp( MouseEvent event ) override;
+
 };
 
 }  // namespace tetrisapp

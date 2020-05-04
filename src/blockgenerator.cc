@@ -5,21 +5,37 @@
 #include "tetris/blockgenerator.h"
 #include <tetris/grid.h>
 #include <random>
+#include <ctime>
+#include <cstdlib>
+#include <stdlib.h>
 
-tetris::Block tetris::BlockGenerator::GetRandomBlock() {
-  while (!IsBlockValid()) {
-    for (int i = 0; i < kMaxBlockSideLength; i++) {
-      for (int j = 0; j < kMaxBlockSideLength; j++) {
-        //block_arr[i][j] = (bool) std::bind(std::uniform_int_distribution<>(0,1),std::default_random_engine());
-      }
+
+tetris::BlockGenerator::BlockGenerator() {
+  for (int i = 0; i < kMaxBlockSideLength; i++) {
+    for (int j = 0; j < kMaxBlockSideLength; j++) {
+      block_arr[i][j] = 0;
     }
   }
+}
+
+tetris::Block tetris::BlockGenerator::GetRandomBlock() {
+  /*while (!IsBlockValid()) {*/
+    bool val = 0;
+    for (int i = 0; i < kMaxBlockSideLength; i++) {
+      for (int j = 0; j < kMaxBlockSideLength; j++) {
+        srand(time(NULL));
+        block_arr[i][j] = static_cast<bool>(rand() % 2);
+        val = block_arr[i][j];
+      }
+    }
+/*
+  }
+*/
   return Block(block_arr);
 }
 
 bool tetris::BlockGenerator::IsBlockValid() {
-  bool block_validity = true;
-  if (BlockWrapsAround()) return false;
+  //if (BlockWrapsAround()) return false;
   // TODO- complete this
   return false;
 }
@@ -46,6 +62,3 @@ bool tetris::BlockGenerator::SegmentHasABlockPart() {
 bool tetris::BlockGenerator::ManhattanPathExists() {
   return false;
 }
-
-
-

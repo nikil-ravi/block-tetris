@@ -24,14 +24,15 @@ using cinder::app::MouseEvent;
 
 const char kNormalFont[] = "Arial";
 
-bool box1_clicked = false, box2_clicked = false, box3_clicked = false;
-
 TetrisApp::TetrisApp()
     : engine_{},
       paused_{false},
       grid{},
-      block_fits{true},
-      block() {}
+      block_fits{false},
+      block{},
+      block_generator{},
+      block_moved{false},
+      tried_to_fit_block{false} {}
 
 void TetrisApp::PlayMusic(std::string music_path) {
   try {
@@ -43,20 +44,23 @@ void TetrisApp::PlayMusic(std::string music_path) {
 
 void TetrisApp::setup() {
   PlayMusic("uncan.wav");
-  std::array<std::array<bool, 3>, 3> arr = {{{1, 1, 1}, {0, 0, 0}, {0, 0, 0}}};
-  //background = cinder::gl::Texture2dRef(loadImage(loadResource()));
-  //background = loadImage(loadResource("tetris2.jpg"));
-
-  //gl::draw( background );
-  block = new Block(arr);
-  engine_.RenderBlock(*block);
+  // block = block_generator.GetRandomBlock();
+  std::array<std::array<bool, 3>, 3> blockarray = {{{1, 0, 0}, {1, 1, 0}, {1, 0, 0}}};
+  block = Block(blockarray);
 }
 
 void TetrisApp::update() {
+  gl::enableAlphaBlending();
   if (!mVoice->isPlaying()) {PlayMusic("uncan.wav");}
-  std::array<std::array<bool, 3>, 3> arr = {{{1, 1, 1}, {0, 1, 0}, {0, 0, 0}}};
-  Block block(arr);
-  //engine_.SetBlock(block);
+  if (block_moved) {
+    //block = block_generator.GetRandomBlock();
+    std::array<std::array<bool, 3>, 3> blockarray = {{{0, 0, 0}, {0, 1, 0}, {1, 0, 1}}};
+    block = Block(blockarray);
+    block_fits = false;
+    block_moved = false;
+    //mPointsX.clear();
+    //mPointsY.clear();
+  }
 }
 
 void TetrisApp::DrawSmallRect() {
@@ -80,7 +84,7 @@ void DrawGameRect() {
 }
 
 void TetrisApp::RenderGrid() {
-  /*cinder::gl::color(0, 1, 0);
+  cinder::gl::color(0, 1, 1);
   try {
     for (float x = (getWindowWidth()/2-240.0f) + 80; x < getWindowWidth()/2+240.0f; x += 80) {
       float y1 = getWindowHeight()/2-240.0f;
@@ -94,21 +98,30 @@ void TetrisApp::RenderGrid() {
       glVertexPointer(2, GL_FLOAT, 0, line_vertex);
       glDrawArrays(GL_LINES, 0, 2);
     }
-  } catch (std::exception e) {}*/
-
+  } catch (std::exception e) {}
 }
 
 void TetrisApp::DrawBlock() {
-  //Block block = engine_.GetBlock();
-  std::array<std::array<bool, 3>, 3> block_spec = block->GetBlockSpec();
-  float x = getWindowWidth()/2;
-  float y = getWindowHeight()/9;
-  if (!mPointsX.empty() && block_fits) {
+  std::array<std::array<bool, 3>, 3> block_spec = block.GetBlockSpec();
+
+  float x, y;
+
+  if (!mPointsX.empty()) {
     x = mPointsX[mPointsX.size() - 1];
     y = mPointsY[mPointsY.size() - 1];
-    final_point_X = x;
-    final_point_Y = y;
+  } else {
+    x = getWindowWidth()/2 - 50.0f;
+    y = getWindowWidth()/9 - 50.0f;
   }
+
+
+  block_moved = true;
+
+  /*if (!block_fits) {
+    x = getWindowWidth()/2;
+    y = getWindowWidth()/9;
+    block_moved = false;
+  }*/
 
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
@@ -122,10 +135,14 @@ void TetrisApp::DrawBlock() {
   }
 }
 
-
 void TetrisApp::draw() {
 
   gl::clear();
+
+  gl::enableAlphaBlending();
+
+  /*background = gl::Texture2d::create(loadImage(loadAsset("tetris3.jpg")));
+  gl::draw(background, getWindowBounds());*/
 
   DrawGameRect();
 
@@ -150,6 +167,28 @@ void TetrisApp::draw() {
   DrawBlock();
 }
 
+void TetrisApp::mouseDrag(MouseEvent event) {
+  mPointsX.push_back(event.getX());
+  mPointsY.push_back(event.getY());
+}
+
+void TetrisApp::mouseUp(MouseEvent event) {
+
+  final_point_X = mPointsX[mPointsX.size() - 1];
+  final_point_Y = mPointsY[mPointsY.size() - 1];
+
+  block_fits = true;
+
+  /*Point point = grid->CanFit(event.getX(), event.getY(), block.GetBlockSpec());
+
+  if (point.GetRow() >= 0 && point.GetColumn() >= 0) {
+    // TODO update grid class, other variables that need to be updated
+    block_fits = true;
+  } else {
+    block_fits = false;
+  }*/
+}
+
 void TetrisApp::keyDown(KeyEvent event) {
   switch (event.getCode()) {
     case KeyEvent::KEY_s: {
@@ -166,23 +205,6 @@ void TetrisApp::keyDown(KeyEvent event) {
 
     }
   }
-}
-
-void TetrisApp::mouseDrag(MouseEvent event) {
-  mPointsX.push_back(event.getX());
-  mPointsY.push_back(event.getY());
-}
-
-void TetrisApp::mouseUp(MouseEvent event) {
-  Point point = grid->CanFit(event.getX(), event.getY(), block->GetBlockSpec());
-
-  /*if (point.GetRow() >= 0 && point.GetColumn() >= 0) {
-    // TODO update grid class, other variables that need to be updated
-    block_fits = true;
-  } else {
-    block_fits = false;
-  }
-  //AppBase::mouseUp(event);*/
 }
 
 }  // namespace tetrisapp

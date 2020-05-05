@@ -103,13 +103,18 @@ namespace tetris {
       for (int j = 0; j < kMaxBlockSideLength; j++) {
         if (row + i < kLengthOfGrid && column + j < kLengthOfGrid) {
           if (arr[i][j] == 1 && grid_arr[row + i][column + j] == 0) {
-            grid_arr[row + i][column + j] = 1;
+            grid_arr[row + i][column + j] = true;
           }
         } else {
-          return 0;
+          return false;
         }
       }
     }
+    return true;
+  }
+
+  std::array<std::array<bool, 8>, 8> Grid::GetGridArr() {
+    return grid_arr;
   }
 }
 

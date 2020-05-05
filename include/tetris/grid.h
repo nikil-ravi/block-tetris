@@ -36,6 +36,8 @@ namespace tetris {
     Point GetPointForFloatCoords(float x, float y);
 
     bool Update(int row, int column, std::array<std::array<bool, 3>, 3> arr);
+
+    std::array<std::array<bool, 8>, 8> GetGridArr();
   };
 
 } // namespace tetris

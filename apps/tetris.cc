@@ -86,7 +86,7 @@ void DrawGameRect() {
 }
 
 void TetrisApp::RenderGrid() {
-  cinder::gl::color(0, 1, 1);
+  /*cinder::gl::color(0, 1, 1);
   try {
     for (float x = (getWindowWidth()/2-240.0f) + 80; x < getWindowWidth()/2+240.0f; x += 80) {
       float y1 = getWindowHeight()/2-240.0f;
@@ -100,7 +100,27 @@ void TetrisApp::RenderGrid() {
       glVertexPointer(2, GL_FLOAT, 0, line_vertex);
       glDrawArrays(GL_LINES, 0, 2);
     }
-  } catch (std::exception e) {}
+  } catch (std::exception e) {}*/
+
+  cinder::gl::color(0, 1, 1);
+
+  std::array<std::array<bool, 8>, 8> grid_array = grid->GetGridArr();
+
+  float x = getWindowWidth()/2 - 240.0f;
+  float y = getWindowHeight()/2 - 240.0f;
+
+  for (int i = 0; i < 8; i++) {
+    for (int j = 0; j < 8; j++) {
+      if (grid_array[i][j] == 1) {
+        gl::drawSolidRect( Rectf( 40 * i + x - 20.0f,
+                                  40 * j + y - 20.0f,
+                                  40 * i + x + 20.0f,
+                                  40 * j + y + 20.0f ) );
+      }
+    }
+  }
+
+
 }
 
 void TetrisApp::DrawBlock() {
@@ -141,7 +161,7 @@ void TetrisApp::draw() {
 
   DrawSmallRect();
 
-  //RenderGrid();
+  RenderGrid();
 
   auto box = TextBox()
       .alignment(TextBox::CENTER)

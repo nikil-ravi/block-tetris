@@ -31,3 +31,10 @@
 - **5/1/20** 
     - Added general code in grid, tetris classes.
     - Created a Block Generator class and implemented some of its methods.
+
+- **5/3/20**
+    - Changed app logic to allow proper drag and drop
+    [ ] Important: must complete grid update logic and functionality
+
+- **5/5/20**
+    - Added grid update logic

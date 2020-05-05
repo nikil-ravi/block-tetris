@@ -179,6 +179,10 @@ void TetrisApp::mouseUp(MouseEvent event) {
 
   block_fits = true;
 
+  Point point = grid->CanFit(event.getX(), event.getY(), block.GetBlockSpec());
+
+  grid->Update(point.GetRow(), point.GetColumn(), block.GetBlockSpec());
+
   /*Point point = grid->CanFit(event.getX(), event.getY(), block.GetBlockSpec());
 
   if (point.GetRow() >= 0 && point.GetColumn() >= 0) {

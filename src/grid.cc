@@ -85,5 +85,20 @@ namespace tetris {
     }
     return true;
   }
+
+  bool Grid::Update(int row, int column,
+                    std::array<std::array<bool, 3>, 3> arr) {
+    for (int i = 0; i < kMaxBlockSideLength; i++) {
+      for (int j = 0; j < kMaxBlockSideLength; j++) {
+        if (row + i <= 7 && column + j <= 7) {
+          if (arr[i][j] == 1 && grid_arr[row + i][column + j] == 0) {
+            grid_arr[row + i][column + j] = 1;
+          }
+        } else {
+          return 0;
+        }
+      }
+    }
+  }
 }
 

@@ -32,6 +32,8 @@ namespace tetris {
     bool CollisionExists(std::array<std::array<bool, 3>, 3>, int row, int column);
 
     Point CanFit(float x, float y, std::array<std::array<bool, 3>, 3> arr);
+
+    bool Update(int row, int column, std::array<std::array<bool, 3>, 3> arr);
   };
 
 } // namespace tetris

@@ -23,9 +23,10 @@ tetris::Block tetris::BlockGenerator::GetRandomBlock() {
     bool val = 0;
     for (int i = 0; i < kMaxBlockSideLength; i++) {
       for (int j = 0; j < kMaxBlockSideLength; j++) {
-        srand(time(NULL));
+        //srand(time(NULL));
         block_arr[i][j] = static_cast<bool>(rand() % 2);
         val = block_arr[i][j];
+        std::cout << val << std::endl;
       }
     }
 /*

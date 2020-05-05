@@ -62,6 +62,17 @@ namespace tetris {
     }
   }
 
+  Point Grid::GetPointForFloatCoords(float x, float y) {
+    x = x - (getWindowWidth()/2-240.0f);
+    y = y - (getWindowHeight()/2-240.0f);
+
+    int column = std::floor(x / 80.0f);
+    int row = std::floor(y / 80.0f);
+
+    Point point(row, column);
+    return point;
+  }
+
   bool Grid::CollisionExists(std::array<std::array<bool, 3>, 3> arr, int row,
                              int column) {
     for (int i = row; i < row + 3; i++) {
@@ -90,7 +101,7 @@ namespace tetris {
                     std::array<std::array<bool, 3>, 3> arr) {
     for (int i = 0; i < kMaxBlockSideLength; i++) {
       for (int j = 0; j < kMaxBlockSideLength; j++) {
-        if (row + i <= 7 && column + j <= 7) {
+        if (row + i < kLengthOfGrid && column + j < kLengthOfGrid) {
           if (arr[i][j] == 1 && grid_arr[row + i][column + j] == 0) {
             grid_arr[row + i][column + j] = 1;
           }

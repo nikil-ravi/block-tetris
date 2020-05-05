@@ -30,6 +30,7 @@ class TetrisApp : public cinder::app::App {
   tetris::BlockGenerator block_generator;
   bool block_moved;
   bool tried_to_fit_block;
+  bool grid_updated;
 
  public:
   TetrisApp();

@@ -27,12 +27,13 @@ const char kNormalFont[] = "Arial";
 TetrisApp::TetrisApp()
     : engine_{},
       paused_{false},
-      grid{},
+      grid{new Grid()},
       block_fits{false},
       block{},
       block_generator{},
       block_moved{false},
-      tried_to_fit_block{false} {}
+      tried_to_fit_block{false},
+      grid_updated{false} {}
 
 void TetrisApp::PlayMusic(std::string music_path) {
   try {
@@ -52,14 +53,15 @@ void TetrisApp::setup() {
 void TetrisApp::update() {
   gl::enableAlphaBlending();
   if (!mVoice->isPlaying()) {PlayMusic("uncan.wav");}
-  if (block_moved) {
+  if (grid_updated) {
     //block = block_generator.GetRandomBlock();
-    std::array<std::array<bool, 3>, 3> blockarray = {{{0, 0, 0}, {0, 1, 0}, {1, 0, 1}}};
-    block = Block(blockarray);
-    block_fits = false;
-    block_moved = false;
-    //mPointsX.clear();
-    //mPointsY.clear();
+    //std::array<std::array<bool, 3>, 3> blockarray = {{{0, 0, 0}, {0, 1, 0}, {1, 0, 1}}};
+    //block = Block(blockarray);
+    block = block_generator.GetRandomBlock();
+    tried_to_fit_block = false;
+    grid_updated = false;
+    mPointsX.clear();
+    mPointsY.clear();
   }
 }
 
@@ -114,15 +116,6 @@ void TetrisApp::DrawBlock() {
     y = getWindowWidth()/9 - 50.0f;
   }
 
-
-  block_moved = true;
-
-  /*if (!block_fits) {
-    x = getWindowWidth()/2;
-    y = getWindowWidth()/9;
-    block_moved = false;
-  }*/
-
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
       if (block_spec[i][j] == 1) {
@@ -174,14 +167,19 @@ void TetrisApp::mouseDrag(MouseEvent event) {
 
 void TetrisApp::mouseUp(MouseEvent event) {
 
-  final_point_X = mPointsX[mPointsX.size() - 1];
-  final_point_Y = mPointsY[mPointsY.size() - 1];
+  //final_point_X = mPointsX[mPointsX.size() - 1];
+  //final_point_Y = mPointsY[mPointsY.size() - 1];
 
-  block_fits = true;
+  //block_fits = true;
+  tried_to_fit_block = true;
 
-  Point point = grid->CanFit(event.getX(), event.getY(), block.GetBlockSpec());
+  Point point = grid->GetPointForFloatCoords(event.getX(), event.getY());
 
-  grid->Update(point.GetRow(), point.GetColumn(), block.GetBlockSpec());
+  if (point.GetColumn() < 0 || point.GetRow() < 0) {
+    return;
+  }
+
+  grid_updated = grid->Update(point.GetRow(), point.GetColumn(), block.GetBlockSpec());
 
   /*Point point = grid->CanFit(event.getX(), event.getY(), block.GetBlockSpec());
 

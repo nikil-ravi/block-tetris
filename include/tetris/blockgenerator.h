@@ -8,10 +8,13 @@
 #include <array>
 #include <tetris/block.h>
 
+typedef std::array<std::array<bool, 8>, 8> BoolArrayGrid;
+typedef std::array<std::array<bool, 3>, 3> BoolArrayBlock;
+
 namespace tetris {
   class BlockGenerator {
    private:
-    std::array<std::array<bool, 3>, 3> block_arr;
+    BoolArrayBlock block_arr;
 
    public:
 

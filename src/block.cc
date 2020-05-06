@@ -7,17 +7,19 @@
 #include <tetris/block.h>
 #include <tetris/point.h>
 
+typedef std::array<std::array<bool, 8>, 8> BoolArrayGrid;
+typedef std::array<std::array<bool, 3>, 3> BoolArrayBlock;
 using namespace ci;
 using namespace ci::app;
 
 namespace tetris {
 
   Block::Block() {
-    std::array<std::array<bool, 3>, 3> arr = {{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}};
+    BoolArrayBlock arr = {{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}};
     block_arr = arr;
   }
 
-  Block::Block(std::array<std::array<bool, 3>, 3> block_spec) {
+  Block::Block(BoolArrayBlock block_spec) {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         block_arr[i][j] = block_spec[i][j];
@@ -25,7 +27,7 @@ namespace tetris {
     }
   }
 
-  std::array<std::array<bool, 3>, 3> Block::GetBlockSpec() {
+  BoolArrayBlock Block::GetBlockSpec() {
     return block_arr;
   }
 } // namespace tetris

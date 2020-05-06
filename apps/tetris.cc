@@ -111,7 +111,7 @@ void TetrisApp::RenderGrid() {
 
   cinder::gl::color(0, 1, 1);
 
-  std::array<std::array<bool, 8>, 8> grid_array = grid->GetGridArr();
+  BoolArrayGrid grid_array = grid->GetGridArr();
 
   // set coordinates to the beginning of the grid on the UI.
   float x = getWindowWidth()/2 - 160.0f;
@@ -136,7 +136,7 @@ void TetrisApp::DrawBlock() {
 
   cinder::gl::color(1, 0, 0);
 
-  std::array<std::array<bool, 3>, 3> block_spec = block.GetBlockSpec();
+  BoolArrayBlock block_spec = block.GetBlockSpec();
 
   // if the mPoints vector isn't empty, then set coords to the last element of
   // mPoints vectors. Else, user hasn't dragged and dropped- so set coords

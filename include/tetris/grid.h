@@ -9,6 +9,8 @@
 
 #include "point.h"
 
+typedef std::array<std::array<bool, 8>, 8> BoolArrayGrid;
+typedef std::array<std::array<bool, 3>, 3> BoolArrayBlock;
 using namespace std;
 
 
@@ -18,7 +20,7 @@ namespace tetris {
 
   class Grid {
    private:
-    std::array<std::array<bool, 8>, 8> grid_arr;
+    BoolArrayGrid grid_arr;
    public:
 
     Grid();
@@ -31,13 +33,13 @@ namespace tetris {
 
     bool CollisionExists(std::array<std::array<bool, 3>, 3>, int row, int column);
 
-    Point CanFit(float x, float y, std::array<std::array<bool, 3>, 3> arr);
+    Point CanFit(float x, float y, BoolArrayBlock arr);
 
     Point GetPointForFloatCoords(float x, float y);
 
-    bool Update(int row, int column, std::array<std::array<bool, 3>, 3> arr);
+    bool Update(int row, int column, BoolArrayBlock arr);
 
-    std::array<std::array<bool, 8>, 8> GetGridArr();
+    BoolArrayGrid GetGridArr();
 
     bool GridCompleted();
   };

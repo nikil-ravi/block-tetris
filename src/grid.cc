@@ -113,7 +113,7 @@ namespace tetris {
     return true;
   }
 
-  std::array<std::array<bool, 8>, 8> Grid::GetGridArr() {
+  BoolArrayGrid Grid::GetGridArr() {
     return grid_arr;
   }
 
@@ -125,5 +125,5 @@ namespace tetris {
     }
     return true;
   }
-  }
+}
 

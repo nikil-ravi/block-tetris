@@ -43,3 +43,4 @@
 - **5/6/20**
     - Improved block and grid rendering
     - Added final code to make the game work (albeit with a glitch)
+    - Added typedefs for block and grid arrays to enhance readability

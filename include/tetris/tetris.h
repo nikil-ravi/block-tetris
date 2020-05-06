@@ -11,6 +11,9 @@
 
 #include "grid.h"
 
+typedef std::array<std::array<bool, 8>, 8> BoolArrayGrid;
+typedef std::array<std::array<bool, 3>, 3> BoolArrayBlock;
+
 namespace tetrisapp {
 
 class TetrisApp : public cinder::app::App {

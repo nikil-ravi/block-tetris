@@ -21,6 +21,7 @@ namespace tetris {
   class Grid {
    private:
     BoolArrayGrid grid_arr;
+
    public:
 
     Grid();

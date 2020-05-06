@@ -25,7 +25,6 @@ class TetrisApp : public cinder::app::App {
   bool paused_;
   float final_point_X;
   float final_point_Y;
-  //gl::Texture myImage;
   tetris::Grid* grid;
   bool block_fits;
   cinder::gl::Texture2dRef background;

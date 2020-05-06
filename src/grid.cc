@@ -63,13 +63,13 @@ namespace tetris {
   }
 
   Point Grid::GetPointForFloatCoords(float x, float y) {
-    x = x - (getWindowWidth()/2-240.0f);
-    y = y - (getWindowHeight()/2-240.0f);
+    x = x - (getWindowWidth()/2-160.0f);
+    y = y - (getWindowHeight()/2-160.0f);
 
-    int column = std::floor(x / 80.0f);
-    int row = std::floor(y / 80.0f);
+    int column = std::floor(x / 40.0f);
+    int row = std::floor(y / 40.0f);
 
-    Point point(row, column);
+    Point point(column, row);
     return point;
   }
 
@@ -116,5 +116,14 @@ namespace tetris {
   std::array<std::array<bool, 8>, 8> Grid::GetGridArr() {
     return grid_arr;
   }
-}
+
+  bool Grid::GridCompleted() {
+    for (int i = 0; i < kLengthOfGrid; i++) {
+      for (int j = 0; j < kLengthOfGrid; j++) {
+        if (!grid_arr[i][j]) return false;
+      }
+    }
+    return true;
+  }
+  }
 

@@ -39,3 +39,7 @@
 - **5/5/20**
     - Added grid update logic
     - Added random block generation code
+
+- **5/6/20**
+    - Improved block and grid rendering
+    - Added final code to make the game work (albeit with a glitch)

@@ -9,15 +9,18 @@
 #include <cstdlib>
 #include <stdlib.h>
 
-
+// Constructor- sets all the elements to 0 (or false).
 tetris::BlockGenerator::BlockGenerator() {
   for (int i = 0; i < kMaxBlockSideLength; i++) {
     for (int j = 0; j < kMaxBlockSideLength; j++) {
-      block_arr[i][j] = 0;
+      block_arr[i][j] = false;
     }
   }
 }
 
+// This function generates a random block- it generates a random boolean value
+// (0 or 1), nine times and puts those values in the 3x3 boolean block array.
+// It returns the block generated.
 tetris::Block tetris::BlockGenerator::GetRandomBlock() {
   /*while (!IsBlockValid()) {*/
     bool val = 0;

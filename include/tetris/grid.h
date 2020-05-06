@@ -38,6 +38,8 @@ namespace tetris {
     bool Update(int row, int column, std::array<std::array<bool, 3>, 3> arr);
 
     std::array<std::array<bool, 8>, 8> GetGridArr();
+
+    bool GridCompleted();
   };
 
 } // namespace tetris

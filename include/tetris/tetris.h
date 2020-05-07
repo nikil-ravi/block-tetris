@@ -7,8 +7,7 @@
 #include <cinder/app/MouseEvent.h>
 #include <cinder/audio/audio.h>
 #include <tetris/blockgenerator.h>
-
-#include "grid.h"
+#include <tetris/grid.h>
 
 typedef std::array<std::array<bool, 8>, 8> BoolArrayGrid;
 typedef std::array<std::array<bool, 3>, 3> BoolArrayBlock;
@@ -17,17 +16,16 @@ namespace tetrisapp {
 
 class TetrisApp : public cinder::app::App {
  private:
+  // used to keep track of mouse position during drag and drop.
   vector<float> mPointsX;
   vector<float> mPointsY;
-  ci::audio::VoiceRef mVoice;
+
+  ci::audio::VoiceRef mVoice; // used for audio
   bool paused_;
   tetris::Grid* grid;
-  bool block_fits;
-  cinder::gl::Texture2dRef background;
+  cinder::gl::Texture2dRef background; // background image
   tetris::Block block;
   tetris::BlockGenerator block_generator;
-  bool block_moved;
-  bool tried_to_fit_block;
   bool grid_updated;
 
  public:
@@ -42,9 +40,7 @@ class TetrisApp : public cinder::app::App {
   void mouseDrag( MouseEvent event ) override;
   void RenderGrid();
   void mouseUp( MouseEvent event ) override;
-
 };
-
 }  // namespace tetrisapp
 
 #endif  // FINALPROJECT_APPS_MYAPP_H_

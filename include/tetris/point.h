@@ -11,13 +11,10 @@ class Point {
  private:
   int row,column;
  public:
-  // default constructor
+  // default constructor- (default point is invalid.)
   Point() { row = -1; column = -1; }
-
   Point(int _x, int _y) : row(_x), column(_y) {}
-
   int GetRow();
-
   int GetColumn();
 };
 

@@ -16,12 +16,10 @@ namespace tetris {
   // This class is used to generates random block(s) to display on the screen.
   class BlockGenerator {
    private:
-
     // represents the block- as 0s and 1s.
     BoolArrayBlock block_arr;
 
    public:
-
     // Constructor- sets all the elements to 0 (or false).
     BlockGenerator();
 
@@ -30,17 +28,12 @@ namespace tetris {
     // It returns the block generated.
     Block GetRandomBlock();
 
-    // TODO: implement these- functions after this point *can* be
+    // TODO: implement these; functions after this point *can* be
     //  implemented to improve/extend the game
-
     bool IsBlockValid();
-
     bool IsBlockContinuous();
-
     bool BlockWrapsAround();
-
     bool SegmentHasABlockPart();
-
     bool ManhattanPathExists();
   };
 }

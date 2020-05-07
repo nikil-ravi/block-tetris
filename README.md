@@ -23,12 +23,11 @@ Here are the steps (preferably on Windows):
 
 1) Install Visual Studio 2015 by following the steps here: 
 
-2) Get Cinder: You can download the latest version Cinder for your platform here
+2) Get Cinder: You can download the latest version Cinder for your platform here.
 Here is a basic tutorial on how to develop Cinder projects: https://libcinder.org/docs/guides/tour/hello_cinder_chapter1.html.
+Some helpful documentation: https://libcinder.org/docs/reference/index.html.
 
-Here is some documentation: https://libcinder.org/docs/reference/index.html.
-
-3) Here are some steps to get started with using Cinder:
+3) Here are the steps to get started with Cinder in your IDE:
 - Download Cinder (v0.9.2) for your platform and extract the downloaded item into a folder, say ~/Cinder.
 - Open the ~/Cinder folder in CLion and click the green build button. This will build libcinder.
 - Create a directory, say my-projects in ~/Cinder. Clone the 'Enhanced Tetris' project into this folder.

@@ -1,6 +1,6 @@
 // Copyright (c) 2020 Nikil. All rights reserved.
 
-#include "tetris/tetris.h"
+#include <tetris/tetris.h>
 
 using namespace ci;
 using namespace ci::app;
@@ -8,21 +8,18 @@ using namespace std;
 using namespace tetris;
 using namespace ci::audio;
 
-namespace tetrisapp {
-
 using cinder::app::KeyEvent;
 using cinder::app::MouseEvent;
+
+namespace tetrisapp {
 
 const char kNormalFont[] = "Arial";
 
 TetrisApp::TetrisApp()
    :  paused_{false},
       grid{new Grid()},
-      block_fits{false},
       block{},
       block_generator{},
-      block_moved{false},
-      tried_to_fit_block{false},
       grid_updated{false} {}
 
 void TetrisApp::PlayMusic(std::string music_path) {
@@ -34,6 +31,7 @@ void TetrisApp::PlayMusic(std::string music_path) {
 }
 
 void TetrisApp::setup() {
+
   PlayMusic("uncan.wav");
 
   // set the current block of the game to a randomly generated one.
@@ -41,7 +39,6 @@ void TetrisApp::setup() {
 }
 
 void TetrisApp::update() {
-  //gl::enableAlphaBlending();
 
   // if music has stopped, play again.
   if (!mVoice->isPlaying()) {PlayMusic("uncan.wav");}
@@ -49,7 +46,6 @@ void TetrisApp::update() {
   // update all the variables if the user has placed a block successfully
   if (grid_updated) {
     block = block_generator.GetRandomBlock();
-    tried_to_fit_block = false;
     grid_updated = false;
     mPointsX.clear();
     mPointsY.clear();
@@ -92,8 +88,8 @@ void TetrisApp::RenderGrid() {
   float y = getWindowHeight()/2 - 160.0f;
 
   // for each element of the grid array, draw a solid square if it is 1.
-  for (int i = 0; i < 8; i++) {
-    for (int j = 0; j < 8; j++) {
+  for (int i = 0; i < kLengthOfGrid; i++) {
+    for (int j = 0; j < kLengthOfGrid; j++) {
       if (grid_array[i][j] == 1) {
         gl::drawSolidRect( Rectf( 40 * i + x,
                                   40 * j + y,
@@ -105,8 +101,6 @@ void TetrisApp::RenderGrid() {
 }
 
 void TetrisApp::DrawBlock() {
-
-  //cinder::gl::color(1, 0, 0);
 
   BoolArrayBlock block_spec = block.GetBlockSpec();
 
@@ -124,8 +118,8 @@ void TetrisApp::DrawBlock() {
 
   // for each element of the block array, draw a solid square if the element
   // is a 1.
-  for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
+  for (int i = 0; i < kMaxBlockSideLength; i++) {
+    for (int j = 0; j < kMaxBlockSideLength; j++) {
       if (block_spec[i][j] == 1) {
         gl::drawSolidRect( Rectf( 40 * i + x - 20.0f,
                                   40 * j + y - 20.0f,
@@ -176,8 +170,6 @@ void TetrisApp::mouseDrag(MouseEvent event) {
 
 void TetrisApp::mouseUp(MouseEvent event) {
 
-  tried_to_fit_block = true;
-
   Point point = grid->GetPointForFloatCoords(event.getX(), event.getY());
 
   // this means the user dragged the block to an invalid location.
@@ -189,6 +181,7 @@ void TetrisApp::mouseUp(MouseEvent event) {
   grid_updated = grid->Update(point.GetRow(), point.GetColumn(), block.GetBlockSpec());
 }
 
+// TODO can add this functionality later to improve game.
 void TetrisApp::keyDown(KeyEvent event) {
   switch (event.getCode()) {
     case KeyEvent::KEY_s: {
@@ -199,7 +192,6 @@ void TetrisApp::keyDown(KeyEvent event) {
       // TODO do whatever is necessary to deal with paused/not paused
     }
     case KeyEvent::KEY_DOWN: {
-
     }
   }
 }

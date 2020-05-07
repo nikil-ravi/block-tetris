@@ -7,8 +7,8 @@
 
 using namespace tetris;
 
-TEST_CASE("Random sanity test", "[random]") {
-  REQUIRE(0 <= 1);
+TEST_CASE("Sanity test", "[random]") {
+  REQUIRE(0 <= 2);
 }
 
 TEST_CASE("Default Constructor sets all the elements to 0") {

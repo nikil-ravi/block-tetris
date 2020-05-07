@@ -15,5 +15,25 @@ The game will be somewhat like Tetris, but will have some modifications- for ins
 
 The project uses Cinder with OpenGL.
 
+![Enhanced Tetris' UI](assets/tetrisimage.jpg)
+
 To use this project, you must have Visual Studio 2015 on Windows. It also uses CMake as a build tool; once you have these configured properly, all you need to do is build and run the repository after cloning it.
+
+Here are the steps (preferably on Windows):
+
+1) Install Visual Studio 2015 by following the steps here: 
+
+2) Get Cinder: You can download the latest version Cinder for your platform here
+Here is a basic tutorial on how to develop Cinder projects: https://libcinder.org/docs/guides/tour/hello_cinder_chapter1.html.
+
+Here is some documentation: https://libcinder.org/docs/reference/index.html.
+
+3) Here are some steps to get started with using Cinder:
+- Download Cinder (v0.9.2) for your platform and extract the downloaded item into a folder, say ~/Cinder.
+- Open the ~/Cinder folder in CLion and click the green build button. This will build libcinder.
+- Create a directory, say my-projects in ~/Cinder. Clone the 'Enhanced Tetris' project into this folder.
+- Open the 'Enhanced Tetris' project in CLion, set the target to cinder-snake and click the run button.
+
+
+
 

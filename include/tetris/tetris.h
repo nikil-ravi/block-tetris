@@ -6,7 +6,6 @@
 #include <cinder/app/App.h>
 #include <cinder/app/MouseEvent.h>
 #include <cinder/audio/audio.h>
-#include <tetris/engine.h>
 #include <tetris/blockgenerator.h>
 
 #include "grid.h"
@@ -18,13 +17,10 @@ namespace tetrisapp {
 
 class TetrisApp : public cinder::app::App {
  private:
-  vector<int> mPointsX;
-  vector<int> mPointsY;
+  vector<float> mPointsX;
+  vector<float> mPointsY;
   ci::audio::VoiceRef mVoice;
-  tetris::Engine engine_;
   bool paused_;
-  float final_point_X;
-  float final_point_Y;
   tetris::Grid* grid;
   bool block_fits;
   cinder::gl::Texture2dRef background;

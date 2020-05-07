@@ -1,15 +1,6 @@
 // Copyright (c) 2020 Nikil. All rights reserved.
 
 #include "tetris/tetris.h"
-#include <cinder/app/App.h>
-#include <cinder/audio/Exception.h>
-#include <cinder/audio/audio.h>
-#include <tetris/block.h>
-#include <tetris/grid.h>
-#include "cinder/ImageIo.h"
-#include "cinder/app/RendererGl.h"
-#include "cinder/gl/Texture.h"
-#include "cinder/gl/gl.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -25,8 +16,7 @@ using cinder::app::MouseEvent;
 const char kNormalFont[] = "Arial";
 
 TetrisApp::TetrisApp()
-    : engine_{},
-      paused_{false},
+   :  paused_{false},
       grid{new Grid()},
       block_fits{false},
       block{},
@@ -51,7 +41,7 @@ void TetrisApp::setup() {
 }
 
 void TetrisApp::update() {
-  gl::enableAlphaBlending();
+  //gl::enableAlphaBlending();
 
   // if music has stopped, play again.
   if (!mVoice->isPlaying()) {PlayMusic("uncan.wav");}
@@ -71,10 +61,10 @@ void TetrisApp::DrawSmallRect() {
 
   // draw a stroked (non-solid, only border) rectangle at top of screen
   // to display new blocks.
-  gl::drawStrokedRect( Rectf( getWindowWidth()/2-120.0f,
-                              getWindowHeight()/9-120.0f,
-                              getWindowWidth()/2+120.0f,
-                              getWindowHeight()/9+120.0f ) );
+  gl::drawStrokedRect( Rectf( getWindowWidth()/2-60.0f,
+                              getWindowHeight()/6-60.0f,
+                              getWindowWidth()/2+60.0f,
+                              getWindowHeight()/6+60.0f ) );
 }
 
 void DrawGameRect() {
@@ -93,22 +83,6 @@ void DrawGameRect() {
 }
 
 void TetrisApp::RenderGrid() {
-  /*cinder::gl::color(0, 1, 1);
-  try {
-    for (float x = (getWindowWidth()/2-240.0f) + 80; x < getWindowWidth()/2+240.0f; x += 80) {
-      float y1 = getWindowHeight()/2-240.0f;
-      float line_vertex[] = { x, y1, x + 480.0f, y1};
-      glVertexPointer(2, GL_FLOAT, 0, line_vertex);
-      glDrawArrays(GL_LINES, 0, 2);
-    }
-    for (float y = (getWindowHeight()/2-240.0f) + 80; y < getWindowWidth()/2+240.0f; y += 80) {
-      float x1 = getWindowWidth()/2-240.0f;
-      float line_vertex[] = { x1, y, x1, y + 480.0f};
-      glVertexPointer(2, GL_FLOAT, 0, line_vertex);
-      glDrawArrays(GL_LINES, 0, 2);
-    }
-  } catch (std::exception e) {}*/
-
   cinder::gl::color(0, 1, 1);
 
   BoolArrayGrid grid_array = grid->GetGridArr();
@@ -128,13 +102,11 @@ void TetrisApp::RenderGrid() {
       }
     }
   }
-
-
 }
 
 void TetrisApp::DrawBlock() {
 
-  cinder::gl::color(1, 0, 0);
+  //cinder::gl::color(1, 0, 0);
 
   BoolArrayBlock block_spec = block.GetBlockSpec();
 
@@ -146,8 +118,8 @@ void TetrisApp::DrawBlock() {
     x = mPointsX[mPointsX.size() - 1];
     y = mPointsY[mPointsY.size() - 1];
   } else {
-    x = getWindowWidth()/2 - 50.0f;
-    y = getWindowWidth()/9 - 50.0f;
+    x = getWindowWidth()/2 - 40.0f;
+    y = getWindowWidth()/6 - 40.0f;
   }
 
   // for each element of the block array, draw a solid square if the element
@@ -171,7 +143,7 @@ void TetrisApp::draw() {
   gl::enableAlphaBlending();
 
   // load and display bg image.
-  background = gl::Texture2d::create(loadImage(loadAsset("tetris3.jpg")));
+  background = gl::Texture2d::create(loadImage(loadAsset("tetrisimage.jpg")));
   gl::draw(background, getWindowBounds());
 
   DrawGameRect();
@@ -188,8 +160,7 @@ void TetrisApp::draw() {
       .font(cinder::Font(kNormalFont, 30))
       .size({700, 100})
       .backgroundColor(ColorA(0, 1, 1, 0))
-      .text("Welcome to Block Tetris! Press the 's' key to begin.\n Instructions:"
-                     " p: Pause   r: Reset  spacebar: Stop/Quit");
+      .text("Welcome to Block Tetris!");
   const auto box_size = box.getSize();
   const cinder::vec2 locp = {getWindowCenter().x - box_size.x / 2, getWindowCenter().y - box_size.y / 2 + 300.0f};
   const auto surface = box.render();
@@ -221,10 +192,8 @@ void TetrisApp::mouseUp(MouseEvent event) {
 void TetrisApp::keyDown(KeyEvent event) {
   switch (event.getCode()) {
     case KeyEvent::KEY_s: {
-      engine_.StartGame();
     }
     case KeyEvent::KEY_r: {
-      TetrisApp();
     }
     case KeyEvent::KEY_p: {
       // TODO do whatever is necessary to deal with paused/not paused

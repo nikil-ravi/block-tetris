@@ -2,10 +2,7 @@
 // Created by nikil on 4/18/2020.
 //
 
-#include <cinder/app/AppBase.h>
-#include <cinder/gl/gl.h>
 #include <tetris/block.h>
-#include <tetris/point.h>
 
 typedef std::array<std::array<bool, 8>, 8> BoolArrayGrid;
 typedef std::array<std::array<bool, 3>, 3> BoolArrayBlock;

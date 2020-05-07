@@ -19,8 +19,8 @@
     - Wrote code to render a block, along with some other modifications to different files
     - Implemented functionality to drag and drop a block from the top (outside the game area) to inside the main game area.
     - Things to do next:
-    [ ] Implement block placement logic in grid class
-    [ ] Write code to generate random blocks
+    [X] Implement block placement logic in grid class
+    [X] Write code to generate random blocks
     [ ] Write code to check whether a block is valid
 
 
@@ -34,7 +34,7 @@
 
 - **5/3/20**
     - Changed app logic to allow proper drag and drop
-    [ ] Important: must complete grid update logic and functionality
+    [X] Important: must complete grid update logic and functionality
 
 - **5/5/20**
     - Added grid update logic
@@ -44,3 +44,5 @@
     - Improved block and grid rendering
     - Added final code to make the game work (albeit with a glitch)
     - Added typedefs for block and grid arrays to enhance readability
+    - Added tests and improved UI
+    - Made style related changes and enhanced readability; added comments.

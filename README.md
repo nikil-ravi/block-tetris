@@ -15,7 +15,7 @@ The game will be somewhat like Tetris, but will have some modifications- for ins
 
 The project uses Cinder with OpenGL.
 
-![Enhanced Tetris' UI](assets/tetrisimage.jpg)
+![Enhanced Tetris' UI](assets/enhancedtetris.jpg)
 
 To use this project, you must have Visual Studio 2015 on Windows. It also uses CMake as a build tool; once you have these configured properly, all you need to do is build and run the repository after cloning it.
 

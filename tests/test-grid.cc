@@ -10,7 +10,7 @@
 using namespace tetris;
 
 TEST_CASE("Random sanity test", "[random]") {
-REQUIRE(0 <= 1);
+  REQUIRE(0 <= 1);
 }
 
 TEST_CASE("Constructor sets elements to 0") {
@@ -77,21 +77,24 @@ TEST_CASE("Update grid") {
   SECTION("Block is completely out of grid") {
     BoolArrayBlock block_array = {{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}}};
     Grid grid;
-    REQUIRE(grid.Update(0, 12, block_array) == false);
+    // cannot be updated- row, col out of bounds- so must return false
+    REQUIRE(!grid.Update(0, 12, block_array));
   }
 }
 
 TEST_CASE("Get point from float coords") {
   SECTION("Coords are valid") {
-
-  }
-  SECTION("Only one coordinate is valid") {
-
-  }
-  SECTION("Both coordinates are invalid") {
-
+    Grid grid;
+    Point point = grid.GetPointForFloatCoords(400, 400);
+    REQUIRE(point.GetColumn() >= 0);
+    REQUIRE(point.GetColumn() < kLengthOfGrid);
+    REQUIRE(point.GetRow() >= 0);
+    REQUIRE(point.GetRow() < kLengthOfGrid);
   }
   SECTION("Negative point is returned when necessary") {
-
+    Grid grid;
+    Point point = grid.GetPointForFloatCoords(20, 20);
+    REQUIRE(point.GetColumn() < 0);
+    REQUIRE(point.GetRow() < 0);
   }
 }

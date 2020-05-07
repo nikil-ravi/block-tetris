@@ -20,8 +20,8 @@ namespace tetris {
   }
 
   Block::Block(BoolArrayBlock block_spec) {
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; j++) {
+    for (int i = 0; i < kMaxBlockSideLength; i++) {
+      for (int j = 0; j < kMaxBlockSideLength; j++) {
         block_arr[i][j] = block_spec[i][j];
       }
     }

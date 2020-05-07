@@ -11,42 +11,23 @@
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 
+typedef std::array<std::array<bool, 8>, 8> BoolArrayGrid;
+typedef std::array<std::array<bool, 3>, 3> BoolArrayBlock;
 using namespace ci;
 using namespace ci::app;
-
 using namespace std;
 
 namespace tetris {
 
   const int kMaxBlockSideLength = 3;
-  /*enum class BlockSpec {
-    Horizontal,
-    Vertical,
-    LShapedBottomLeft,
-    LShapedBottomRight,
-    LShapedTopLeft,
-    LShapedTopRight,
-    ModifiedLShapedBottomLeft,
-    ModifiedLShapedBottomRight,
-    ModifiedLShapedTopLeft,
-    ModifiedLShapedTopRight,
-    ModifiedInvalidInput,
-    TwoSquare,
-    ThreeSquare,
-    TwoVertical,
-    ThreeVertical,
-    TwoHorizontal,
-    ThreeHorizontal,
-  };
-*/
+
   class Block {
    private:
-    std::array<std::array<bool, 3>, 3> block_arr;
-    std::vector<vec2> mPoints;
+    BoolArrayBlock block_arr;
    public:
     Block();
-    Block(std::array<std::array<bool, 3>, 3> block_spec);
-    std::array<std::array<bool, 3>, 3> GetBlockSpec();
+    Block(BoolArrayBlock block_spec);
+    BoolArrayBlock GetBlockSpec();
   };
 } // namespace tetris
 

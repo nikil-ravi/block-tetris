@@ -22,18 +22,14 @@ tetris::BlockGenerator::BlockGenerator() {
 // (0 or 1), nine times and puts those values in the 3x3 boolean block array.
 // It returns the block generated.
 tetris::Block tetris::BlockGenerator::GetRandomBlock() {
-  /*while (!IsBlockValid()) {*/
-    bool val = 0;
-    for (int i = 0; i < kMaxBlockSideLength; i++) {
-      for (int j = 0; j < kMaxBlockSideLength; j++) {
-        block_arr[i][j] = static_cast<bool>(rand() % 2);
-        val = block_arr[i][j];
-        std::cout << val << std::endl;
-      }
+  bool val = 0;
+  for (int i = 0; i < kMaxBlockSideLength; i++) {
+    for (int j = 0; j < kMaxBlockSideLength; j++) {
+      block_arr[i][j] = static_cast<bool>(rand() % 2);
+      val = block_arr[i][j];
+      std::cout << val << std::endl;
     }
-/*
   }
-*/
   return Block(block_arr);
 }
 

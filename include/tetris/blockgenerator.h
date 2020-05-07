@@ -14,6 +14,7 @@ typedef std::array<std::array<bool, 3>, 3> BoolArrayBlock;
 namespace tetris {
   class BlockGenerator {
    private:
+
     BoolArrayBlock block_arr;
 
    public:
@@ -22,6 +23,8 @@ namespace tetris {
 
     Block GetRandomBlock();
 
+    // functions after this point *can* be implemented to improve/extend
+    // the game
     bool IsBlockValid();
 
     bool IsBlockContinuous();
@@ -33,6 +36,5 @@ namespace tetris {
     bool ManhattanPathExists();
   };
 }
-
 
 #endif  // FINALPROJECT_BLOCKGENERATOR_H
